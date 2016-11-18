@@ -1,0 +1,614 @@
+/* General css */
+.my-danger-text
+{
+    color:red;
+}
+.my-orange-text
+{
+    color:orange;
+}
+.my-success-text
+{
+    color:green;
+}
+.my-black-text
+{
+    color:#000;
+}
+.my-pointer-item
+{
+    cursor: pointer;
+}
+.my-common-highlighter
+{
+    background-color:#ffffa1;
+}
+.my-noUnderline
+{
+    text-decoration: none !important;
+}
+.my-primary-highlighter
+{
+    background-color:#286090;
+    color:#fff;
+}
+.my-marginDown
+{
+    margin-bottom:15px;
+}
+.my-marginUp
+{
+    margin-top:15px;
+}
+.my-marginLR-zero
+{
+    margin-left:0 !important;
+    margin-right:0 !important;
+}
+.my-NoMargin
+{
+    margin:0;
+}
+.my-fullWidth
+{
+    width:100%;
+}
+.fa-15x
+{
+    font-size:1.5em;
+}
+.my-bootstrap-background
+{
+    background-color:#e7e7e7;
+}
+.my-display-inline
+{
+    display: inline-block;
+}
+.my-marginTopBottom
+{
+    margin-top: 5px;
+    margin-bottom:5px;
+}
+.my-noBorderRadius
+{
+    border-radius: 0 !important;
+}
+.my-singleBorder
+{
+    border:1px solid #ccc;
+}
+.clear
+{
+    clear:both;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.notification-indicator-big
+{
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    -webkit-transform: scale(1,1);
+    -moz-transform: scale(1,1);
+    -ms-transform: scale(1,1);
+    -o-transform: scale(1,1);
+    transform: scale(1,1);
+    display:none;
+}
+.notification-indicator
+{
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    -webkit-transform: scale(1,1);
+    -moz-transform: scale(1,1);
+    -ms-transform: scale(1,1);
+    -o-transform: scale(1,1);
+    transform: scale(1,1);
+    display:none;
+}
+.notification-indicator-mobile
+{
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    -webkit-transform: scale(1,1);
+    -moz-transform: scale(1,1);
+    -ms-transform: scale(1,1);
+    -o-transform: scale(1,1);
+    transform: scale(1,1);
+    display:none;
+}
+
+.notification-animate-cls
+{
+    display:block;
+    animation-name:notificationShow;
+    -o-animation-name:notificationShow;
+    -ms-animation-name:notificationShow;
+    -webkit-animation-name:notificationShow;
+    -moz-animation-name:notificationShow;
+    animation-duration:1s;
+    -o-animation-duration:1s;
+    -ms-animation-duration:1s;
+    -webkit-animation-duration:1s;
+    -moz-animation-duration:1s;
+    animation-iteration-count:1;
+    -o-animation-iteration-count:1;
+    -ms-animation-iteration-count:1;
+    -webkit-animation-iteration-count:1;
+    -moz-animation-iteration-count:1;
+    animation-direction:normal;
+    -o-animation-direction:normal;
+    -ms-animation-direction:normal;
+    -webkit-animation-direction:normal;
+    -moz-animation-direction:normal;
+}
+
+@keyframes notificationShow {
+    from {
+        -webkit-transform: scale(0,0);
+        -moz-transform: scale(0,0);
+        -ms-transform: scale(0,0);
+        -o-transform: scale(0,0);
+        transform: scale(0,0);
+    }
+    to{
+        -webkit-transform: scale(1,1);
+        -moz-transform: scale(1,1);
+        -ms-transform: scale(1,1);
+        -o-transform: scale(1,1);
+        transform: scale(1,1);
+    }
+}
+
+@-webkit-keyframes notificationShow {
+    from {
+        width:0;
+        height:0;
+    }
+    to{
+        width:10px;
+        height:10px;
+    }
+}
+
+/* Custom Loader */
+.custom-loader-body {
+    overflow:hidden;
+    position: relative;
+}
+.custom-loader-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    z-index: 1000000;
+    background: #fff;
+    display: none;
+}
+#myCustomBeerLoader
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+/* for login form*/
+#mainLoginForm .login-error-block
+{
+    color:red;
+    font-weight:bold;
+}
+.homePage .my-mainMenuList li, .mailPage .my-mainMenuList li
+{
+    position:relative;
+}
+.homePage .my-mainMenuList li a, .mugCheckIn .my-mainMenuList li a,
+.mailPage .my-mainMenuList li a, .offerPage .my-mainMenuList li a
+{
+    text-decoration: none;
+    color:#333;
+}
+.homePage .my-mainMenuList .menuWrap
+{
+    cursor: pointer;
+    border:1px solid #ccc;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #ccc;
+    margin: 5px;
+    padding: 10px;
+}
+.homePage .loginpin-list li , .pinChange .loginpin-list li
+{
+    width:45px;
+}
+.mugCheckIn .my-mainMenuList .menuWrap, .mailPage .my-mainMenuList .menuWrap, .offerPage .my-mainMenuList .menuWrap
+{
+    cursor: pointer;
+    border:1px solid #ccc;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #ccc;
+    padding: 10px;
+    margin:5px;
+}
+.mailPage .my-mainMenuList .menuWrap
+{
+    width:130px;
+}
+.mugCheckIn .my-mainMenuList li a span
+{
+    font-weight: bold;
+}
+.homePage .my-mainMenuList li a span
+{
+    font-size:1.5em;
+    color:green;
+    position: relative;
+    top:5px;
+}
+.pac-container
+{
+    z-index:10000 !important;
+}
+#my_map
+{
+    height:300px;
+    margin-top:10px;
+}
+.locSelectPage .my-mainMenuList li>input, .mugCheckIn .my-mainMenuList li>input
+{
+    display:none;
+}
+.locSelectPage .my-mainMenuList li>label
+{
+    cursor: pointer;
+    border:1px solid #ccc;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #ccc;
+    margin: 20px;
+    padding: 20px;
+    text-align:center;
+}
+.locSelectPage .my-mainMenuList li input[type="radio"]:checked +label, .mugCheckIn .my-mainMenuList li input[type="radio"]:checked +label
+{
+    background-color:#ccc;
+}
+.mugClub .pagination-List
+{
+    margin-top:10px;
+}
+.mugClub .form-horizontal .form-group
+{
+    margin-left:0;
+    margin-right:0;
+}
+.mugClub .pagination-List>li
+{
+    padding:0;
+}
+.mugClub .avail-header .available-mugs-list .avail-mugs
+{
+    cursor: pointer;
+}
+.mugCheckIn .my-mainMenuList li>label
+{
+    cursor: pointer;
+    border:1px solid #ccc;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #ccc;
+    padding: 10px;
+    text-align:center;
+    width:100px;
+}
+.mugCheckIn .my-info-filler
+{
+    opacity:0;
+}
+.mugCheckIn .mugInput #mugNum
+{
+    height:50px;
+}
+.mugCheckIn .mugInput .verify-checkin-btn
+{
+    height:50px;
+}
+.mugCheckIn .final-checkIn-row .final-checkin-btn
+{
+    font-size:20px;
+}
+.mugCheckIn .form-horizontal .control-label
+{
+    padding: 7px 0;
+}
+
+.mugCheckIn .main-box{
+    box-shadow: 0 0 5px #ccc;
+}
+
+.mugCheckIn .fill-remaining-info a
+{
+    text-decoration: none;
+    cursor:default;
+}
+.info-fill-overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+    background: #000;
+    display: none;
+}
+
+#searchModal .my-checkIn-search-table tr{
+    cursor:pointer;
+}
+
+#searchModal #main-mugclub-table, #todayModal #main-mugclub-table, .offerPage table
+{
+    width:100% !important;
+}
+#searchModal .modal-body .modal-table
+{
+    overflow: auto;
+}
+
+.userList .adduser-btn, .locationsList .adduser-btn
+{
+    margin-bottom:10px;
+}
+
+.mailPage .my-mainMenuList li .badge
+{
+    position: absolute;
+    top:-5px;
+    right:0;
+    background-color:red;
+}
+.mailPage #mainMailerForm .form-group #mailBody
+{
+    height:200px;
+}
+.mailPage .custom-mugs-list
+{
+    border:1px solid #ccc;
+    padding:5px;
+    height:200px;
+    overflow:auto;
+}
+.mailPage .mugtags-list
+{
+    font-size:16px;
+}
+#bodyModal .body-half-txt li
+{
+    border-bottom:1px solid #ccc;
+    border-radius:5px;
+}
+#bodyModal #body-preview
+{
+    height:200px;
+}
+.offerPage .stats-nums
+{
+    color:#337ab7;
+    font-weight: bold;
+    font-size:20px;
+}
+.dashboard nav{
+    margin-bottom:0;
+}
+.dashboard #feedWeekly-canvas
+{
+    display:block !important;
+}
+.dashboard .custom-filter
+{
+    width:150px;
+}
+.dashboard .barContainers
+{
+    width:200px;
+    height:250px;
+    margin:0 auto;
+}
+.dashboard #instamojo .demo-card-square > .mdl-card__title {
+    color: #fff;
+    background-color:#00BBD6;
+}
+.dashboard #instamojo .demo-card-square .fa-beer{
+    color:gold;
+}
+.dashboard #instamojo .demo-card-square .mugTitle{
+    margin-left:5px;
+    margin-top:10px;
+}
+.dashboard #instamojo .demo-card-square
+{
+    width:auto !important;
+}
+.dashboard dialog.mdl-dialog .mdl-dialog__title
+{
+    padding:0;
+    font-size: x-large;
+}
+.dashboard #feedback .dynamic-form-wrapper
+{
+    height:400px;
+    overflow: auto;
+}
+.dashboard #beerLoc-modal .beer-loc-select ul li
+{
+    background: #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.dashboard #beerLoc-modal .loc-info
+{
+    background: #A2C760;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.dashboard #beerLoc-modal .loc-info span
+{
+    color:#fff;
+}
+.dashboard #beerLoc-modal .loc-info i
+{
+    background:#ccc;
+    padding: 2px;
+    border-radius: 20px;
+}
+.dashboard .mdl-radio__outer-circle, .dashboard .mdl-radio__inner-circle, .dashboard .mdl-radio__ripple-container
+{
+    margin-left: 5px;
+    margin-top: 2px;
+}
+.dashboard .myFormWrapper
+{
+    border-bottom:1px solid #ccc;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+}
+.eventEdit .img-remove-icon, .fnbEdit .img-remove-icon
+{
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    background:#fff;
+    cursor:pointer;
+}
+.eventViewer .event-descrip-wrapper
+{
+    position: relative;
+}
+.eventViewer .my-right-event-icon
+{
+    position: absolute;
+    right:10px;
+    top:15px;
+}
+.eventViewer .event-header-name
+{
+    color:black;
+    font-size:20px;
+    padding: 15px 15px 0;
+}
+.eventViewer .event-sub-text
+{
+    color:#847F7B;
+    padding: 0 15px 10px;
+    margin:0;
+}
+.eventViewer .event-img
+{
+    margin:0 auto;
+}
+.eventViewer blockquote:before, .eventViewer blockquote:after
+{
+    content: '';
+    margin:0;
+}
+.eventViewer .ic_events_icon
+{
+    background:#fffdf4 url('../images/ic_events_off.png') no-repeat;
+    display:block;
+    width:25px;
+    height:25px;
+    background-size: 100% 100%;
+}
+@media screen and (max-width: 1024px)
+{
+    .mailPage .mail-content
+    {
+        width:100% !important;
+    }
+}
+@media screen and (max-width:767px)
+{
+    .mugCheckIn .form-horizontal .control-label
+    {
+        padding: 7px 15px;
+    }
+    .notification-indicator
+    {
+        top: 8px;
+        left: 8px;
+        right:0;
+    }
+    .mailPage .custom-mugs-list
+    {
+        height:150px;
+    }
+    .mailPage .custom-mugs-list ul
+    {
+        text-align:center;
+    }
+}
+
+@media screen and (max-width:650px)
+{
+    .mugCheckIn .mugNumber-status ul
+    {
+        font-size:12px;
+    }
+}
+@media screen and (max-width:440px)
+{
+    .mugCheckIn .main-box.col-xs-10{
+        width:100% !important;
+        padding:0;
+    }
+    .mugCheckIn .form-adjust-insmall
+    {
+        width:0 !important;
+    }
+}
+
+@media screen and (max-width: 350px)
+{
+    .mugCheckIn .checkin-info-panel
+    {
+        padding:0;
+    }
+    .mugCheckIn .visual-status-icons
+    {
+        padding:0;
+        text-align:center;
+    }
+}
