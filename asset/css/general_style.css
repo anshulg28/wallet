@@ -1,4 +1,8 @@
 /* General css */
+body, .mdl-button
+{
+    font-family: 'Averia Serif Libre' !important;
+}
 .my-danger-text
 {
     color:red;
@@ -82,6 +86,22 @@
 {
     clear:both;
 }
+.text-center
+{
+    text-align:center !important;
+}
+.success
+{
+    background: #d6e9c6;
+}
+.danger
+{
+    background: #f2dede;
+}
+/*.text-left
+{
+    text-align: left !important;
+}*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
@@ -212,12 +232,54 @@ input::-webkit-inner-spin-button {
     transform: translateX(-50%) translateY(-50%);
 }
 
+.demo-card-wide.mdl-card {
+    width: 100%;
+}
+.walletPage .wallet-action-btns li
+{
+    margin:5px;
+}
+.demo-card-wide > .mdl-card__title {
+    /*color: #fff;
+    background: #34A853;*/
+    display: block;
+}
+.demo-card-wide > .mdl-card__menu {
+    color: #fff;
+}
 /* for login form*/
 #mainLoginForm .login-error-block
 {
     color:red;
     font-weight:bold;
 }
+.homePage .mdl-custom-login-title
+{
+    display:inline-block;
+    padding:15px;
+}
+.homePage .tbl-responsive, .walletPage .tbl-responsive
+{
+    overflow: auto;
+}
+.walletPage .tbl-responsive table
+{
+    margin:0 auto;
+}
+.walletPage .wallet-check-panel
+{
+    margin-top:50px;
+    background: #fcf8e3;
+}
+.homePage .add-staff-btn
+{
+    margin:25px;
+}
+.mdl-tooltip
+{
+    will-change:unset;
+}﻿
+
 .homePage .my-mainMenuList li, .mailPage .my-mainMenuList li
 {
     position:relative;
@@ -244,6 +306,10 @@ input::-webkit-inner-spin-button {
 .homePage .loginpin-list li , .pinChange .loginpin-list li
 {
     width:45px;
+}
+.walletPage .mdl-card__supporting-text
+{
+    width:100%;
 }
 .mugCheckIn .my-mainMenuList .menuWrap, .mailPage .my-mainMenuList .menuWrap, .offerPage .my-mainMenuList .menuWrap
 {

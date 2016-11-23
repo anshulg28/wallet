@@ -36,6 +36,28 @@ class Login_Model extends CI_Model
         return $data;
     }
 
+    public function checkAdminUser($userName, $userPassword)
+    {
+        $query = "SELECT userId,ifActive "
+            ."FROM doolally_usersmaster "
+            ."where userType = 1 AND userName = '".$userName."' "
+            ."AND password = '".$userPassword."' ";
+
+        $result = $this->db->query($query)->row_array();
+
+        $data = $result;
+        if(myIsArray($result))
+        {
+            $data['status'] = true;
+        }
+        else
+        {
+            $data['status'] = false;
+        }
+
+        return $data;
+    }
+
     public function checkAppUser($userEmail, $userPassword)
     {
         $query = "SELECT userId,ifActive "

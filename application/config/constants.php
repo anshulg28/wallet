@@ -94,7 +94,7 @@ defined('EVENT_DATE_FORMAT')   OR define('EVENT_DATE_FORMAT', 'D, M j');
 defined('EVENT_INSIDE_DATE_FORMAT')   OR define('EVENT_INSIDE_DATE_FORMAT', 'l, F j, Y');
 defined('DATE_FORMAT_GRAPH_UI')   OR define('DATE_FORMAT_GRAPH_UI', 'j F');
 defined('DATE_MAIL_FORMAT_UI')   OR define('DATE_MAIL_FORMAT_UI', 'jS M Y');
-defined('DATE_TIME_FORMAT_UI')   OR define('DATE_TIME_FORMAT_UI', 'D, jS F, Y g:i a');
+defined('DATE_TIME_FORMAT_UI')   OR define('DATE_TIME_FORMAT_UI', 'D, jS M, Y g:i a');
 
 /* Mail Type */
 defined('EXPIRED_MAIL') OR define('EXPIRED_MAIL',1);

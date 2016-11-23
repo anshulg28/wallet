@@ -2,204 +2,147 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title><?php echo $title; ?></title>
+	<title>Doolally wallet</title>
 	<?php echo $globalStyle; ?>
 </head>
 <body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
     <?php echo $headerView; ?>
-    <main class="homePage">
+    <main class="mdl-layout__content homePage">
         <?php
-            if(isSessionVariableSet($this->isUserSession) === true)
-            {
-                if($this->userType != GUEST_USER)
-                {
-                    ?>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <h2 class="text-center">Welcome <?php echo ucfirst($this->userName); ?></h2>
-                            <br>
-                            <div class="col-sm-12 text-center">
-                                <ul class="list-inline my-mainMenuList">
-                                    <?php
-                                    if($this->userType != SERVER_USER)
-                                    {
-                                        ?>
-                                        <li>
-                                            <a href="<?php echo base_url().'main';?>">
-                                                <div class="menuWrap">
-                                                    <i class="fa fa-beer fa-2x"></i>
-                                                    <br>
-                                                    <span>Mug Portal</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url().'dashboard';?>">
-                                                <div class="menuWrap">
-                                                    <i class="glyphicon glyphicon-dashboard fa-2x"></i>
-                                                    <br>
-                                                    <span>Dashboard</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <?php
-                                    }
-                                    else
-                                    {
-                                        ?>
-                                        <li>
-                                            <a href="<?php echo base_url().'mugclub';?>">
-                                                <div class="menuWrap">
-                                                    <i class="fa fa-beer fa-2x"></i>
-                                                    <br>
-                                                    <span>Mug Club</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url() . 'check-ins/add'; ?>">
-                                                <div class="menuWrap">
-                                                    <i class="fa fa-calendar-check-o fa-2x"></i>
-                                                    <br>
-                                                    <span>Check-Ins</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="<?php echo base_url() . 'offers/check'; ?>">
-                                                <div class="menuWrap">
-                                                    <i class="fa fa-trophy fa-2x"></i>
-                                                    <br>
-                                                    <span>Offers Check</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <?php
-                                    }
-                                    ?>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+        if(isSessionVariableSet($this->isUserSession) === true)
+        {
+        ?>
+            <h2 class="text-center">Welcome <?php echo ucfirst($this->userName); ?></h2>
+            <a href="<?php echo base_url().'add';?>" class="add-staff-btn">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect ">
+                    Add New Staff Member
+                </button>
+            </a>
+            <div class="mdl-grid tbl-responsive">
+                <table id="staffTable" class="mdl-data-table mdl-shadow--2dp" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Employee Id</th>
+                        <th>Name</th>
+                        <th>Place</th>
+                        <th>Mobile Number</th>
+                        <th>Wallet Balance</th>
+                        <th>Department</th>
+                        <th>Joining Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <?php
-                }
-                else
-                {
+                        if(isset($staffList) && myIsMultiArray($staffList))
+                        {
+                            foreach($staffList as $key => $row)
+                            {
+                                ?>
+                                <tr class="<?php if($row['walletBalance'] < 0){echo 'my-danger-text';}?>">
+                                    <td><?php echo $row['id'];?></td>
+                                    <td><?php echo $row['empId'];?></td>
+                                    <td><?php echo $row['firstName'].' '.$row['middleName'].' '.$row['lastName'];?></td>
+                                    <td><?php echo $row['locName'];?></td>
+                                    <td><?php echo $row['mobNum'];?></td>
+                                    <td><?php echo 'Rs. '.$row['walletBalance'].'/-';?></td>
+                                    <td><?php echo $row['staffDept'];?></td>
+                                    <td><?php $d = date_create($row['staffDoj']); echo date_format($d,DATE_FORMAT_UI);?></td>
+                                    <td>
+                                        <?php
+                                        if($row['ifActive'] == ACTIVE)
+                                        {
+                                            ?>
+                                            <div for="bulb<?php echo $row['id'];?>" class="mdl-tooltip">Active</div>
+                                            <a id="bulb<?php echo $row['id'];?>" href="<?php echo base_url().'blockStaff/'.$row['id'];?>">
+                                                <i class="fa fa-lightbulb-o fa-15x my-success-text"></i></a>&nbsp;
+                                            <?php
+                                        }
+                                        else
+                                        {
+                                            ?>
+                                            <div for="bulb<?php echo $row['id'];?>" class="mdl-tooltip">Blocked</div>
+                                            <a id="bulb<?php echo $row['id'];?>" href="<?php echo base_url().'freeStaff/'.$row['id'];?>">
+                                                <i class="fa fa-lightbulb-o fa-15x my-danger-text"></i></a>&nbsp;
+                                            <?php
+                                        }
+                                        ?>
+                                        <div for="edit<?php echo $row['id'];?>" class="mdl-tooltip">Edit</div>
+                                        <a id="edit<?php echo $row['id'];?>" href="<?php echo base_url().'edit/'.$row['id'];?>">
+                                            <i class="fa fa-edit fa-15x"></i></a>&nbsp;
+                                        <div for="wallet<?php echo $row['id'];?>" class="mdl-tooltip">Manage Wallet</div>
+                                        <a id="wallet<?php echo $row['id'];?>" href="<?php echo base_url().'walletManage/'.$row['id'];?>">
+                                            <i class="fa fa-money fa-15x"></i></a>&nbsp;
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        else
+                        {
+                            ?>
+                            <tr class="my-danger-text">
+                                <td class="text-center" colspan="9">No Data Found!</td>
+                            </tr>
+                            <?php
+                        }
                     ?>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <h2 class="text-center">Welcome <?php echo ucfirst($this->userName); ?></h2>
-                            <br>
-                            <div class="col-sm-12 text-center">
-                                <ul class="list-inline my-mainMenuList">
-                                    <li>
-                                        <a href="<?php echo base_url() . 'offers'; ?>">
-                                            <div class="menuWrap">
-                                                <i class="fa fa-trophy fa-2x"></i>
-                                                <br>
-                                                <span>Offers Page</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                }
-            }
-            else
-            {
-                ?>
-                <div class="container-fluid">
-                    <h2 class="text-center">Login</h2>
-                    <hr>
-                    <form action="<?php echo base_url();?>login/checkUser/json" id="mainLoginForm" method="post" class="form-horizontal" role="form">
+                    </tbody>
+                </table>
+            </div>
+        <?php
+        }
+        else
+        {
+            ?>
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--2-col"></div>
+                <div class="mdl-cell mdl-cell--8-col">
+                    <form action="<?php echo base_url();?>checkUser/json" id="mainLoginForm" method="post" class="form-horizontal" role="form">
                         <div class="login-error-block text-center"></div>
                         <br>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Username:</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="userName" class="form-control" id="email" placeholder="Enter Username">
+                        <div class="demo-card-square mdl-shadow--2dp text-center">
+                            <div class="mdl-custom-login-title">
+                                <h2 class="mdl-card__title-text">Login</h2>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="pwd">Password:</label>
-                            <div class="col-sm-10">
-                                <input type="password" name="password" class="form-control" id="pwd" placeholder="Enter password">
+                            <div class="mdl-card__supporting-text">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="username" name="userName">
+                                    <label class="mdl-textfield__label" for="username">Username</label>
+                                </div>
+                                <br>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="password" id="password" name="password">
+                                    <label class="mdl-textfield__label" for="password">Password</label>
+                                </div>
                             </div>
-                        </div>
-                        <h2 class="text-center">OR</h2>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="pwd">Login Pin:</label>
-                            <div class="col-sm-10">
-                                <ul class="list-inline loginpin-list">
-                                    <li>
-                                        <input class="form-control" oninput="maxLengthCheck(this)" type="number" maxlength="1" name="loginPin1" placeholder="0" />
-                                    </li>
-                                    <li>
-                                        <input class="form-control" oninput="maxLengthCheck(this)" type="number" maxlength="1" name="loginPin2" placeholder="0" />
-                                    </li>
-                                    <li>
-                                        <input class="form-control" oninput="maxLengthCheck(this)" type="number" maxlength="1" name="loginPin3" placeholder="0" />
-                                    </li>
-                                    <li>
-                                        <input class="form-control" oninput="maxLengthCheck(this)" type="number" maxlength="1" name="loginPin4" placeholder="0" />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                    Submit
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
-                <?php
-            }
+                <div class="mdl-cell mdl-cell--2-col"></div>
+            </div>
+            <?php
+        }
         ?>
 
     </main>
+</div>
 </body>
 <?php echo $globalJs; ?>
-
 <script>
-    $(document).on('keyup', 'input[name="loginPin1"]', function(e){
-        if($(this).val() != '')
-        {
-            $('input[name="loginPin2"]').focus();
-        }
-    });
-    $(document).on('keyup', 'input[name="loginPin2"]', function(e){
-        if($(this).val() != '')
-        {
-            $('input[name="loginPin3"]').focus();
-        }
-        else if(e.keyCode == 8)
-        {
-            $('input[name="loginPin1"]').val('').focus();
-        }
-    });
-    $(document).on('keyup', 'input[name="loginPin3"]', function(e){
-        if($(this).val() != '')
-        {
-            $('input[name="loginPin4"]').focus();
-        }
-        else if(e.keyCode == 8)
-        {
-            $('input[name="loginPin2"]').val('').focus();
-        }
-    });
-    $(document).on('keyup', 'input[name="loginPin4"]', function(e){
-        if($(this).val() != '')
-        {
-            $('#mainLoginForm').submit();
-        }
-        else if(e.keyCode == 8)
-        {
-            $('input[name="loginPin3"]').val('').focus();
-        }
-    });
+    if(typeof $('#staffTable') !== 'undefined')
+    {
+        $('#staffTable').DataTable({
+            "ordering": false
+        });
+    }
 </script>
+
 </html>
