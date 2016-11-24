@@ -10,10 +10,10 @@
     <?php echo $headerView; ?>
     <main class="mdl-layout__content homePage">
         <?php
-        if(isSessionVariableSet($this->isUserSession) === true)
+        if(isSessionVariableSet($this->isWUserSession) === true)
         {
         ?>
-            <h2 class="text-center">Welcome <?php echo ucfirst($this->userName); ?></h2>
+            <h2 class="text-center">Welcome <?php echo ucfirst($this->WuserName); ?></h2>
             <a href="<?php echo base_url().'add';?>" class="add-staff-btn">
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect ">
                     Add New Staff Member

@@ -17,13 +17,13 @@ class MY_Controller extends CI_Controller
 	public $pageUrl = '';
 
 
-	public $isUserSession = '';
-	public $userType = '';
-	public $userId = '';
-	public $userName = '';
-    public $userFirstName = '';
-	public $userEmail = '';
-	public $currentLocation = '';
+	public $isWUserSession = '';
+	public $WuserType = '';
+	public $WuserId = '';
+	public $WuserName = '';
+    public $WuserFirstName = '';
+	public $WuserEmail = '';
+	//public $WcurrentLocation = '';
 
 	public $currentUrl = '';
 
@@ -50,24 +50,24 @@ class MY_Controller extends CI_Controller
 		}
 
 
-		if (isSession($this->session->user_type) !== false)
+		if (isSession($this->session->Wuser_type) !== false)
 		{
-			$this->isUserSession = ACTIVE;
-			$this->userType = $this->session->user_type;
-			$this->userName = $this->session->user_name;
-			$this->userId = $this->session->user_id;
-			if(isset($this->session->user_email))
+			$this->isWUserSession = ACTIVE;
+			$this->wuserType = $this->session->Wuser_type;
+			$this->WuserName = $this->session->Wuser_name;
+			$this->WuserId = $this->session->Wuser_id;
+			if(isset($this->session->Wuser_email))
 			{
-				$this->userEmail = $this->session->user_email;
+				$this->WuserEmail = $this->session->Wuser_email;
 			}
-            $this->userFirstName = $this->session->user_firstname;
+            $this->WuserFirstName = $this->session->Wuser_firstname;
 		}
 
 		//get location from session
-		if(isSessionVariableSet($this->session->currentLocation) === true)
+		/*if(isSessionVariableSet($this->session->currentLocation) === true)
         {
             $this->currentLocation = $this->session->currentLocation;
-        }
+        }*/
 
 		//
 		$this->currentUrl = str_replace('/index.php', '', current_url());

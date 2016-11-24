@@ -4,7 +4,7 @@
         <a class="mdl-navigation__link" href="<?php echo base_url();?>">Home</a>
         <a class="mdl-navigation__link" href="<?php echo base_url().'check';?>">Check Wallet</a>
         <?php
-            if(isSessionVariableSet($this->isUserSession) === true)
+            if(isSessionVariableSet($this->isWUserSession) === true)
             {
                 ?>
                 <a class="mdl-navigation__link" href="<?php echo base_url().'logout';?>"><i class="fa fa-sign-out"></i> logout</a>

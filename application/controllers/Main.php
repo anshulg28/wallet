@@ -24,7 +24,7 @@ class Main extends MY_Controller {
 	{
         $data = array();
 
-        if(isSessionVariableSet($this->isUserSession) === true)
+        if(isSessionVariableSet($this->isWUserSession) === true)
         {
             $staff = $this->dashboard_model->getAllStaffs();
             if(isset($staff['status']) &&$staff['status'] === true)
@@ -58,8 +58,8 @@ class Main extends MY_Controller {
                 $this->login_model->setLastLogin($userResult['userId']);
                 $this->generalfunction_library->setUserSession($userResult['userId']);
                 $data['status'] = true;
-                $data['isUserSession'] = $this->isUserSession;
-                $data['userName'] = $this->userName;
+                $data['isUserSession'] = $this->isWUserSession;
+                $data['userName'] = $this->WuserName;
             }
         }
         else
@@ -152,7 +152,7 @@ class Main extends MY_Controller {
             'amount' => '1500',
             'amtAction' => '2',
             'notes' => 'New Staff Added',
-            'updatedBy' => $this->userName
+            'updatedBy' => $this->WuserName
         );
         $this->dashboard_model->updateWalletLog($walletRecord);
 
@@ -185,7 +185,7 @@ class Main extends MY_Controller {
                 'amount' => $walletDiff,
                 'amtAction' => $dorc,
                 'notes' => 'Staff details updated',
-                'updatedBy' => $this->userName
+                'updatedBy' => $this->WuserName
             );
             $this->dashboard_model->updateWalletLog($walletRecord);
         }
@@ -226,7 +226,7 @@ class Main extends MY_Controller {
     }
     function checkUserLogin()
     {
-        if(isSessionVariableSet($this->isUserSession) === false)
+        if(isSessionVariableSet($this->isWUserSession) === false)
         {
             redirect(base_url());
         }
@@ -259,7 +259,7 @@ class Main extends MY_Controller {
             'amount' => $gotAmount,
             'amtAction' => $dorc,
             'notes' => $post['notes'],
-            'updatedBy' => $this->userName
+            'updatedBy' => $this->WuserName
         );
         $this->dashboard_model->updateWalletLog($walletRecord);
 
