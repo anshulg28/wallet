@@ -66,3 +66,5 @@ $route['check'] = 'main/checkWallet';
 $route['getWallet'] = 'main/getWallet';
 $route['checkinStaff'] = 'main/checkinStaff';
 $route['clearBill/(:any)'] = 'main/clearBill/$1';
+$route['staffBill/(:any)'] = 'main/staffBill/$1';
+$route['getCoupon'] = 'main/getCoupon';

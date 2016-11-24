@@ -55,6 +55,12 @@
                                         <label class="mdl-textfield__label" for="subAmt">Withdraw Amount</label>
                                     </div>
                                 </li>
+                                <li style="display:block !important;">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <textarea class="mdl-textfield__input" type="text" rows= "3" cols="5" id="notes" name="notes" required></textarea>
+                                        <label class="mdl-textfield__label" for="notes">Reason Of Update</label>
+                                    </div>
+                                </li>
                                 <li>
                                     <button type="submit" class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect">
                                         Save
@@ -69,6 +75,7 @@
                             <tr>
                                 <th>Amount</th>
                                 <th class="mdl-data-table__cell--non-numeric">Action</th>
+                                <th class="mdl-data-table__cell--non-numeric">Notes</th>
                                 <th class="mdl-data-table__cell--non-numeric">Updated Date/Time</th>
                                 <th class="mdl-data-table__cell--non-numeric">Updated By</th>
                             </tr>
@@ -93,6 +100,9 @@
                                                     echo 'Credit';
                                                 }
                                                 ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['notes'];?>
                                             </td>
                                             <td><?php $d = date_create($row['loggedDT']); echo date_format($d,DATE_TIME_FORMAT_UI); ?></td>
                                             <td><?php echo $row['updatedBy']; ?></td>

@@ -151,6 +151,7 @@ class Main extends MY_Controller {
             'staffId' => $id,
             'amount' => '1500',
             'amtAction' => '2',
+            'notes' => 'New Staff Added',
             'updatedBy' => $this->userName
         );
         $this->dashboard_model->updateWalletLog($walletRecord);
@@ -183,6 +184,7 @@ class Main extends MY_Controller {
                 'staffId' => $post['id'],
                 'amount' => $walletDiff,
                 'amtAction' => $dorc,
+                'notes' => 'Staff details updated',
                 'updatedBy' => $this->userName
             );
             $this->dashboard_model->updateWalletLog($walletRecord);
@@ -256,6 +258,7 @@ class Main extends MY_Controller {
             'staffId' => $id,
             'amount' => $gotAmount,
             'amtAction' => $dorc,
+            'notes' => $post['notes'],
             'updatedBy' => $this->userName
         );
         $this->dashboard_model->updateWalletLog($walletRecord);
@@ -315,5 +318,129 @@ class Main extends MY_Controller {
             $data['status'] = true;
         }
         echo  json_encode($data);
+    }
+
+    function clearBill($id)
+    {
+        $this->dashboard_model->clearCheckinLog($id);
+        redirect(base_url().'check');
+    }
+
+    function staffBill($id)
+    {
+        $data = array();
+
+        $checkinDetail = $this->dashboard_model->getCheckinById($id);
+        if (isset($checkinDetail) && myIsMultiArray($checkinDetail))
+        {
+            $data['billDetails'] = $this->dashboard_model->getBalanceByEmp($checkinDetail[0]['empId']);
+        }
+
+        $data['checkinId'] = $id;
+        $data['globalStyle'] = $this->dataformatinghtml_library->getGlobalStyleHtml($data);
+        $data['globalJs'] = $this->dataformatinghtml_library->getGlobalJsHtml($data);
+        $data['headerView'] = $this->dataformatinghtml_library->getHeaderHtml($data);
+        $data['footerView'] = $this->dataformatinghtml_library->getFooterHtml($data);
+
+        $this->load->view('staffBillView', $data);
+    }
+
+    function getCoupon()
+    {
+        $post = $this->input->post();
+
+        $data = array();
+        $coupon = $this->dashboard_model->getOneCoupon();
+
+        if(isset($coupon) && myIsMultiArray($coupon))
+        {
+            $staffDetails = $this->dashboard_model->getStaffByEmpId($post['empId']);
+
+            $this->dashboard_model->setCouponUsed($coupon['id']);
+            $billLog = array(
+                'billNum' => $post['billNum'],
+                'offerId' => $coupon['id'],
+                'staffId' => $staffDetails[0]['id'],
+                'billAmount' => $post['billAmount'],
+                'insertedDT' => date('Y-m-d H:i:s')
+            );
+            $this->dashboard_model->saveBillLog($billLog);
+            $this->dashboard_model->clearCheckinLog($post['checkInId']);
+            $oldBalance = $post['walletBalance'];
+            $usedAmt = $post['billAmount'];
+            $finalBal = $oldBalance - $usedAmt;
+            $walletRecord = array(
+                'staffId' => $staffDetails[0]['id'],
+                'amount' => $usedAmt,
+                'amtAction' => '1',
+                'notes' => 'Wallet Balance Used',
+                'updatedBy' => 'system'
+            );
+            $this->dashboard_model->updateWalletLog($walletRecord);
+
+            $details = array(
+                'walletBalance' => $finalBal
+            );
+            $this->dashboard_model->updateStaffRecord($staffDetails[0]['id'],$details);
+            $postDetails = array(
+                'apiKey' => TEXTLOCAL_API,
+                'numbers' => '91'.$post['mobNum'],
+                'test'=> true,
+                'message' => rawurlencode('Coupon Code: '.$coupon['offerCode'])
+            );
+            $smsStatus = $this->curl_library->sendCouponSMS($postDetails);
+            if($smsStatus['status'] == 'failure')
+            {
+                $data['smsError'] = $smsStatus['errors'];
+            }
+            $data['status'] = true;
+            $data['couponCode'] = $coupon['offerCode'];
+        }
+        else
+        {
+            $data['status'] = false;
+            $data['errorMsg'] = 'No Coupons Available!';
+        }
+
+        echo json_encode($data);
+    }
+
+    function smsErrorCodes($code)
+    {
+        $returnVal = '';
+        switch($code)
+        {
+            case 4:
+                $returnVal = 'No recipients specified.';
+                break;
+            case 5:
+                $returnVal = 'No message content.';
+                break;
+            case 6:
+                $returnVal = 'Message too long.';
+                break;
+            case 7:
+                $returnVal = 'Insufficient credits.';
+                break;
+            case 32:
+                $returnVal = 'Invalid number format.';
+                break;
+            case 33:
+                $returnVal = 'You have supplied too many numbers.';
+                break;
+            case 43:
+                $returnVal = 'Invalid sender name.';
+                break;
+            case 44:
+                $returnVal = 'No sender name specified.';
+                break;
+            case 51:
+                $returnVal = 'No valid numbers specified.';
+                break;
+            case 192:
+                $returnVal = 'You cannot send message at this time.';
+                break;
+        }
+        return $returnVal;
     }
 }

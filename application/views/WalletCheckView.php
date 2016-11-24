@@ -16,7 +16,7 @@
                     <div class="mdl-card__title">
                         <h2 class="">Check Wallet Balance</h2>
                     </div>
-                    <div class="mdl-card__supporting-text">
+                    <div class="mdl-card__supporting-text tbl-responsive">
                         <form id="walletCheckForm" action="<?php echo base_url();?>getWallet" method="post">
                             <ul class="list-inline">
                                 <li>

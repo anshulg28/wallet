@@ -56,6 +56,16 @@ class Dashboard_Model extends CI_Model
         return $data;
     }
 
+    public function getStaffByEmpId($empid)
+    {
+        $query = "SELECT *"
+            ." FROM staffmaster"
+            ." WHERE empId = '".$empid."'";
+
+        $result = $this->db->query($query)->result_array();
+
+        return $result;
+    }
     public function updateWalletLog($details)
     {
         $details['loggedDT'] = date('Y-m-d H:i:s');
@@ -144,7 +154,7 @@ class Dashboard_Model extends CI_Model
 
     public function getBalanceByEmp($empId)
     {
-        $query = "SELECT sm.empId, sm.firstName, sm.middleName, sm.lastName, sm.walletBalance"
+        $query = "SELECT sm.mobNum, sm.empId, sm.firstName, sm.middleName, sm.lastName, sm.walletBalance"
             ." FROM staffmaster sm"
             ." WHERE sm.empId = '".$empId."'";
 
@@ -152,6 +162,7 @@ class Dashboard_Model extends CI_Model
 
         return $result;
     }
+
     public function checkStaffChecked($empId)
     {
         $query = "SELECT *"
@@ -182,6 +193,16 @@ class Dashboard_Model extends CI_Model
 
         return $result;
     }
+    public function getCheckinById($id)
+    {
+        $query = "SELECT *"
+            ." FROM staffcheckinmaster"
+            ." WHERE staffStatus = 1 AND id = ".$id;
+
+        $result = $this->db->query($query)->result_array();
+
+        return $result;
+    }
 
     public function saveCheckinLog($details)
     {
@@ -191,4 +212,42 @@ class Dashboard_Model extends CI_Model
         $this->db->insert('staffcheckinmaster', $details);
         return true;
     }
+
+    public function clearCheckinLog($id)
+    {
+        $details['updateDT'] = date('Y-m-d H:i:s');
+        $details['staffStatus'] = '2';
+
+        $this->db->where('id', $id);
+        $this->db->update('staffcheckinmaster', $details);
+        return true;
+    }
+
+    public function getOneCoupon()
+    {
+        $query = "SELECT *"
+            ." FROM staffoffermaster"
+            ." WHERE isRedeemed = 0 LIMIT 1";
+
+        $result = $this->db->query($query)->row_array();
+
+        return $result;
+    }
+
+    public function setCouponUsed($id)
+    {
+        $details['useDT'] = date('Y-m-d H:i:s');
+        $details['isRedeemed'] = '1';
+
+        $this->db->where('id', $id);
+        $this->db->update('staffoffermaster', $details);
+        return true;
+    }
+
+    public function saveBillLog($details)
+    {
+        $this->db->insert('staffbillingmaster', $details);
+        return true;
+    }
+
 }

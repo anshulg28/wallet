@@ -40,7 +40,7 @@ class Login_Model extends CI_Model
     {
         $query = "SELECT userId,ifActive "
             ."FROM doolally_usersmaster "
-            ."where userType = 1 AND userName = '".$userName."' "
+            ."where userType IN(1,5) AND userName = '".$userName."' "
             ."AND password = '".$userPassword."' ";
 
         $result = $this->db->query($query)->row_array();
