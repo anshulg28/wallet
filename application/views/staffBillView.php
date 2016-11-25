@@ -49,6 +49,9 @@
                                         Get Coupon
                                     </button>
                                 </form>
+                                <button type="button" id="viewCoupon" class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect hide">
+                                    Didn't Got SMS? View Coupon
+                                </button>
                                 <h3 class="Coupon-view hide"></h3>
                                 <?php
                             }
@@ -87,13 +90,19 @@
                     hideCustomLoader();
                     if(data.status == true)
                     {
+                        $('.Coupon-view').empty().html('Coupon Code: '+data.couponCode);
                         if(typeof data.smsError != 'undefined')
                         {
-                            console.log(data.smsError);
+                            bootbox.alert(data.smsError);
+                            $('.Coupon-view').removeClass('hide');
                         }
-                        bootbox.alert('SMS Has Been Sent Successfully!');
-
-                        $('.Coupon-view').empty().html('Coupon Code: '+data.couponCode).removeClass('hide');
+                        else
+                        {
+                            bootbox.alert('SMS Has Been Sent Successfully!');
+                            setTimeout(function(){
+                                $('#viewCoupon').removeClass('hide');
+                            },10000);
+                        }
                     }
                     else
                     {
@@ -111,6 +120,10 @@
         {
             bootbox.alert('All Fields Are Required!');
         }
+    });
+
+    $(document).on('click','#viewCoupon', function(){
+        $('.Coupon-view').removeClass('hide');
     });
 
 </script>

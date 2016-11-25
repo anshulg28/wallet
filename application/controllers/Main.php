@@ -56,9 +56,9 @@ class Main extends MY_Controller {
             else
             {
                 $this->login_model->setLastLogin($userResult['userId']);
-                $this->generalfunction_library->setUserSession($userResult['userId']);
+                $this->generalfunction_library->setWalletSession($userResult['userId']);
                 $data['status'] = true;
-                $data['isUserSession'] = $this->isWUserSession;
+                $data['isWUserSession'] = $this->isWUserSession;
                 $data['userName'] = $this->WuserName;
             }
         }
@@ -81,11 +81,11 @@ class Main extends MY_Controller {
 
     function logout()
     {
-        $this->session->unset_userdata('user_id');
-        $this->session->unset_userdata('user_type');
-        $this->session->unset_userdata('user_name');
-        $this->session->unset_userdata('user_email');
-        $this->session->unset_userdata('user_firstname');
+        $this->session->unset_userdata('Wuser_id');
+        $this->session->unset_userdata('Wuser_type');
+        $this->session->unset_userdata('Wuser_name');
+        $this->session->unset_userdata('Wuser_email');
+        $this->session->unset_userdata('Wuser_firstname');
 
         redirect(base_url());
     }
@@ -382,16 +382,27 @@ class Main extends MY_Controller {
                 'walletBalance' => $finalBal
             );
             $this->dashboard_model->updateStaffRecord($staffDetails[0]['id'],$details);
+
+            $numbers = array('91'.$post['mobNum']);
+
             $postDetails = array(
                 'apiKey' => TEXTLOCAL_API,
-                'numbers' => '91'.$post['mobNum'],
+                'numbers' => implode(',', $numbers),
                 'test'=> true,
+                'sender'=> urlencode('TXTLCL'),
                 'message' => rawurlencode('Coupon Code: '.$coupon['offerCode'])
             );
             $smsStatus = $this->curl_library->sendCouponSMS($postDetails);
             if($smsStatus['status'] == 'failure')
             {
-                $data['smsError'] = $smsStatus['errors'];
+                if(isset($smsStatus['warnings']))
+                {
+                    $data['smsError'] = $smsStatus['warnings'][0]['message'];
+                }
+                else
+                {
+                    $data['smsError'] = $smsStatus['errors'][0]['message'];
+                }
             }
             $data['status'] = true;
             $data['couponCode'] = $coupon['offerCode'];

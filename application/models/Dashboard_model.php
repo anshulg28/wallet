@@ -124,7 +124,7 @@ class Dashboard_Model extends CI_Model
 
     public function getWalletTrans($id)
     {
-        $query = "SELECT wlm.amount, wlm.amtAction, wlm.loggedDT, wlm.updatedBy"
+        $query = "SELECT wlm.amount, wlm.amtAction, wlm.notes, wlm.loggedDT, wlm.updatedBy"
                 ." FROM walletlogmaster wlm"
                 ." WHERE wlm.staffId = ".$id;
 

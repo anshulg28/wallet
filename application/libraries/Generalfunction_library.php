@@ -48,6 +48,24 @@ class Generalfunction_library
         $this->CI->userMobFirstName = $data['firstName'];
     }
 
+    public function setWalletSession($id)
+    {
+        $data = $this->CI->mydatafetch_library->getUserDetailsByUserId($id);
+
+        $this->CI->session->set_userdata('Wuser_id', $data['userId']);
+        $this->CI->WuserId = $data['userId'];
+        $this->CI->session->set_userdata('Wuser_type', $data['userType']);
+        $this->CI->WuserType = $data['userType'];
+        $this->CI->session->set_userdata('Wuser_name', $data['userName']);
+        $this->CI->WuserName = $data['userName'];
+        if(isset($data['emailId']))
+        {
+            $this->CI->session->set_userdata('Wuser_email', $data['emailId']);
+            $this->CI->WuserEmail = $data['emailId'];
+        }
+        $this->CI->session->set_userdata('Wuser_firstname', $data['firstName']);
+        $this->CI->WuserFirstName = $data['firstName'];
+    }
     public function setSessionVariable($key, $value)
     {
         $this->CI->session->set_userdata($key, $value);
