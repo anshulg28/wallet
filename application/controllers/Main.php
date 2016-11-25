@@ -95,8 +95,8 @@ class Main extends MY_Controller {
         $this->checkUserLogin();
         $data = array();
 
-        $locArray = $this->locations_model->getAllLocations();
-        $data['locations'] = $locArray;
+        //$locArray = $this->locations_model->getAllLocations();
+        //$data['locations'] = $locArray;
 
         $data['globalStyle'] = $this->dataformatinghtml_library->getGlobalStyleHtml($data);
         $data['globalJs'] = $this->dataformatinghtml_library->getGlobalJsHtml($data);

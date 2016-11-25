@@ -38,23 +38,27 @@
                     </div>
                     <br> <!-- To be edited -->
                     <div class="text-left">
-                        <label for="staffPlace">Staff Place: </label>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label my-fullWidth">
+                            <input class="mdl-textfield__input" type="text" name="staffPlace" id="staffPlace" >
+                            <label class="mdl-textfield__label" for="staffPlace">Staff Place: </label>
+                        </div>
+                        <!--<label for="staffPlace">Staff Place: </label>
                         <select id="staffPlace" name="staffPlace" class="form-control" required>
                             <?php
-                            if(isset($locations))
+/*                            if(isset($locations))
                             {
                                 foreach($locations as $subkey => $subrow)
                                 {
                                     if(isset($subrow['id']))
                                     {
-                                        ?>
-                                        <option value="<?php echo $subrow['id'];?>"><?php echo $subrow['locName'];?></option>
+                                        */?>
+                                        <option value="<?php /*echo $subrow['id'];*/?>"><?php /*echo $subrow['locName'];*/?></option>
                                         <?php
-                                    }
+/*                                    }
                                 }
                             }
-                            ?>
-                        </select>
+                            */?>
+                        </select>-->
                     </div>
                     <br>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label my-fullWidth">

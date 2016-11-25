@@ -45,7 +45,7 @@
                                     <td><?php echo $row['id'];?></td>
                                     <td><?php echo $row['empId'];?></td>
                                     <td><?php echo $row['firstName'].' '.$row['middleName'].' '.$row['lastName'];?></td>
-                                    <td><?php echo $row['locName'];?></td>
+                                    <td><?php echo $row['staffPlace'];?></td>
                                     <td><?php echo $row['mobNum'];?></td>
                                     <td><?php echo 'Rs. '.$row['walletBalance'].'/-';?></td>
                                     <td><?php echo $row['staffDept'];?></td>

@@ -18,9 +18,8 @@ class Dashboard_Model extends CI_Model
     {
         $query = "SELECT sm.id, sm.empId, sm.firstName, sm.middleName, sm.lastName, sm.staffPlace,
                    sm.walletBalance, sm.staffDept, sm.staffDesignation, sm.staffDoj, sm.staffDob, sm.mobNum,
-                    sm.insertedDT, sm.ifActive, lm.locName"
-            ." FROM staffmaster sm"
-            ." LEFT JOIN locationmaster lm ON lm.id = sm.staffPlace";
+                    sm.insertedDT, sm.ifActive"
+                ." FROM staffmaster sm";
 
         $result = $this->db->query($query)->result_array();
         $data['staffList'] = $result;
