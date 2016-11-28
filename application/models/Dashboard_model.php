@@ -16,9 +16,8 @@ class Dashboard_Model extends CI_Model
 
     public function getAllStaffs()
     {
-        $query = "SELECT sm.id, sm.empId, sm.firstName, sm.middleName, sm.lastName, sm.staffPlace,
-                   sm.walletBalance, sm.staffDept, sm.staffDesignation, sm.staffDoj, sm.staffDob, sm.mobNum,
-                    sm.insertedDT, sm.ifActive"
+        $query = "SELECT sm.id, sm.empId, sm.firstName, sm.middleName, sm.lastName,
+                   sm.walletBalance, sm.mobNum, sm.insertedDT, sm.ifActive"
                 ." FROM staffmaster sm";
 
         $result = $this->db->query($query)->result_array();

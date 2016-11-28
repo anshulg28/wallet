@@ -5,7 +5,6 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>asset/js/material.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>asset/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>asset/js/moment.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>asset/js/dataTables.material.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>asset/js/doolally-local-session.js"></script>
 

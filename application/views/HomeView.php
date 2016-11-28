@@ -23,14 +23,10 @@
                 <table id="staffTable" class="mdl-data-table mdl-shadow--2dp" cellspacing="0" width="100%">
                     <thead>
                     <tr>
-                        <th>id</th>
                         <th>Employee Id</th>
                         <th>Name</th>
-                        <th>Place</th>
                         <th>Mobile Number</th>
                         <th>Wallet Balance</th>
-                        <th>Department</th>
-                        <th>Joining Date</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -42,14 +38,10 @@
                             {
                                 ?>
                                 <tr class="<?php if($row['walletBalance'] < 0){echo 'my-danger-text';}?>">
-                                    <td><?php echo $row['id'];?></td>
                                     <td><?php echo $row['empId'];?></td>
                                     <td><?php echo $row['firstName'].' '.$row['middleName'].' '.$row['lastName'];?></td>
-                                    <td><?php echo $row['staffPlace'];?></td>
                                     <td><?php echo $row['mobNum'];?></td>
                                     <td><?php echo 'Rs. '.$row['walletBalance'].'/-';?></td>
-                                    <td><?php echo $row['staffDept'];?></td>
-                                    <td><?php $d = date_create($row['staffDoj']); echo date_format($d,DATE_FORMAT_UI);?></td>
                                     <td>
                                         <?php
                                         if($row['ifActive'] == ACTIVE)
