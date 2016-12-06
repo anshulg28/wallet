@@ -37,7 +37,7 @@
                                 id="checkinBtn">
                             Check-Inn
                         </button>
-
+                        <br>
                         <?php
                             if(isset($checkins) && myIsMultiArray($checkins))
                             {

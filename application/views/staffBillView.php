@@ -30,11 +30,27 @@
                                         <label class="mdl-textfield__label" for="empId">Employee Id</label>
                                     </div>
                                     <br>
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label add-wallet">
-                                        <input class="mdl-textfield__input" type="number" id="mobNum" name="mobNum"
-                                               value="<?php echo $billDetails['mobNum'];?>" readonly>
-                                        <label class="mdl-textfield__label" for="mobNum">Phone Number</label>
-                                    </div>
+                                    <?php
+                                        if(isset($billDetails['mobNum']) && $billDetails['mobNum'] != '')
+                                        {
+                                            ?>
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label add-wallet">
+                                                <input class="mdl-textfield__input" type="number" id="mobNum" name="mobNum"
+                                                       value="<?php echo $billDetails['mobNum'];?>" readonly>
+                                                <label class="mdl-textfield__label" for="mobNum">Phone Number</label>
+                                            </div>
+                                            <?php
+                                        }
+                                        else
+                                        {
+                                            ?>
+                                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label add-wallet">
+                                                <input class="mdl-textfield__input" type="number" id="mobNum" name="mobNum">
+                                                <label class="mdl-textfield__label" for="mobNum">Phone Number</label>
+                                            </div>
+                                            <?php
+                                        }
+                                    ?>
                                     <br>
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label add-wallet">
                                         <input class="mdl-textfield__input" type="text" id="billNum" name="billNum">
@@ -45,14 +61,15 @@
                                         <input class="mdl-textfield__input" type="number" id="billAmount" name="billAmount">
                                         <label class="mdl-textfield__label" for="billAmount">Amount</label>
                                     </div>
+                                    <br>
                                     <button type="submit" class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect">
-                                        Get Coupon
+                                        Clear Bill
                                     </button>
                                 </form>
-                                <button type="button" id="viewCoupon" class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect hide">
+                                <!--<button type="button" id="viewCoupon" class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect hide">
                                     Didn't Got SMS? View Coupon
                                 </button>
-                                <h3 class="Coupon-view hide"></h3>
+                                <h3 class="Coupon-view hide"></h3>-->
                                 <?php
                             }
                             else
@@ -90,18 +107,18 @@
                     hideCustomLoader();
                     if(data.status == true)
                     {
-                        $('.Coupon-view').empty().html('Coupon Code: '+data.couponCode);
+                        //$('.Coupon-view').empty().html('Coupon Code: '+data.couponCode);
                         if(typeof data.smsError != 'undefined')
                         {
                             bootbox.alert(data.smsError);
-                            $('.Coupon-view').removeClass('hide');
+                            //$('.Coupon-view').removeClass('hide');
                         }
                         else
                         {
-                            bootbox.alert('SMS Has Been Sent Successfully!');
-                            setTimeout(function(){
+                            bootbox.alert('Bill is Cleared!');
+                            /*setTimeout(function(){
                                 $('#viewCoupon').removeClass('hide');
-                            },10000);
+                            },10000);*/
                         }
                     }
                     else

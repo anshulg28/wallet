@@ -352,14 +352,14 @@ class Main extends MY_Controller {
         $data = array();
         $coupon = $this->dashboard_model->getOneCoupon();
 
-        if(isset($coupon) && myIsMultiArray($coupon))
+        if(isset($post['empId']) && isStringSet($post['empId']))
         {
             $staffDetails = $this->dashboard_model->getStaffByEmpId($post['empId']);
 
-            $this->dashboard_model->setCouponUsed($coupon['id']);
+            //$this->dashboard_model->setCouponUsed($coupon['id']);
             $billLog = array(
                 'billNum' => $post['billNum'],
-                'offerId' => $coupon['id'],
+                'offerId' => null,
                 'staffId' => $staffDetails[0]['id'],
                 'billAmount' => $post['billAmount'],
                 'insertedDT' => date('Y-m-d H:i:s')
@@ -388,9 +388,8 @@ class Main extends MY_Controller {
             $postDetails = array(
                 'apiKey' => TEXTLOCAL_API,
                 'numbers' => implode(',', $numbers),
-                'test'=> true,
                 'sender'=> urlencode('TXTLCL'),
-                'message' => rawurlencode('Coupon Code: '.$coupon['offerCode'])
+                'message' => rawurlencode('Available Wallet Balance: '.$finalBal)
             );
             $smsStatus = $this->curl_library->sendCouponSMS($postDetails);
             if($smsStatus['status'] == 'failure')
@@ -410,7 +409,7 @@ class Main extends MY_Controller {
         else
         {
             $data['status'] = false;
-            $data['errorMsg'] = 'No Coupons Available!';
+            $data['errorMsg'] = 'No Employee Information Available';
         }
 
         echo json_encode($data);
