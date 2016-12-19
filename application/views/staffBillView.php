@@ -115,7 +115,9 @@
                         }
                         else
                         {
-                            bootbox.alert('Bill is Cleared!');
+                            bootbox.alert('Bill Settled!', function(){
+                                window.location.href = base_url+'check';
+                            });
                             /*setTimeout(function(){
                                 $('#viewCoupon').removeClass('hide');
                             },10000);*/

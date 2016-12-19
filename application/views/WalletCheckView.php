@@ -64,7 +64,7 @@
                                             <td><?php $d = date_create($row['updateDT']); echo date_format($d,DATE_TIME_FORMAT_UI);?></td>
                                             <td>
                                                 <a href="<?php echo  base_url().'staffBill/'.$row['id'];?>" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-                                                    Bill
+                                                    Settle Bill
                                                 </a>
                                                 <?php
                                                 if(isSessionVariableSet($this->isWUserSession) === true)
@@ -114,21 +114,29 @@
                     hideCustomLoader();
                     if(data.status == true)
                     {
-                        empDetails['staffName'] = data.balance.firstName+' '+data.balance.middleName+' '+data.balance.lastName;
-                        empDetails['walletBalance'] = data.balance.walletBalance;
-                        empDetails['empId'] = data.balance.empId;
-                        var newHtml = 'Name: '+data.balance.firstName+' '+data.balance.middleName+' '+data.balance.lastName+'<br><br>';
-                        if(Number(data.balance.walletBalance) > 0)
+                        if(data.balance.ifActive == '0')
                         {
-                            newHtml += '<span class="alert-success">Wallet Balance: Rs. '+data.balance.walletBalance+'/-</span>';
-                            $('#checkinBtn').removeClass('hide');
+                            $('.walletBalance-view').empty().html('Employee Account Disabled!').removeClass('hide');
+                            $('#checkinBtn').addClass('hide');
                         }
                         else
                         {
-                            newHtml += '<span class="alert-danger">Wallet Balance: Rs. '+data.balance.walletBalance+'/-</span>';
-                            $('#checkinBtn').addClass('hide');
+                            empDetails['staffName'] = data.balance.firstName+' '+data.balance.middleName+' '+data.balance.lastName;
+                            empDetails['walletBalance'] = data.balance.walletBalance;
+                            empDetails['empId'] = data.balance.empId;
+                            var newHtml = 'Name: '+data.balance.firstName+' '+data.balance.middleName+' '+data.balance.lastName+'<br><br>';
+                            if(Number(data.balance.walletBalance) > 0)
+                            {
+                                newHtml += '<span class="alert-success">Wallet Balance: Rs. '+data.balance.walletBalance+'/-</span>';
+                                $('#checkinBtn').removeClass('hide');
+                            }
+                            else
+                            {
+                                newHtml += '<span class="alert-danger">Wallet Balance: Rs. '+data.balance.walletBalance+'/-</span>';
+                                $('#checkinBtn').addClass('hide');
+                            }
+                            $('.walletBalance-view').empty().html(newHtml).removeClass('hide');
                         }
-                        $('.walletBalance-view').empty().html(newHtml).removeClass('hide');
 
                     }
                     else

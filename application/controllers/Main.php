@@ -388,7 +388,7 @@ class Main extends MY_Controller {
             $postDetails = array(
                 'apiKey' => TEXTLOCAL_API,
                 'numbers' => implode(',', $numbers),
-                'sender'=> urlencode('TXTLCL'),
+                'sender'=> urlencode('DOLALY'),
                 'message' => rawurlencode('Available Wallet Balance: '.$finalBal)
             );
             $smsStatus = $this->curl_library->sendCouponSMS($postDetails);

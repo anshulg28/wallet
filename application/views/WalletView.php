@@ -40,10 +40,10 @@
                                         </button>
                                     </li>
                                     <li>
-                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                                        <!--<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                                                 id="subBtn">
                                             Withdraw Amount
-                                        </button>
+                                        </button>-->
                                     </li>
                                 </ul>
                                 <form id="walletUpdateForm" action="<?php echo base_url();?>updateWallet/<?php echo $walletId;?>" method="post">

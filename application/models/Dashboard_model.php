@@ -141,7 +141,7 @@ class Dashboard_Model extends CI_Model
     }
     public function getBalanceByMob($mobnum)
     {
-        $query = "SELECT sm.empId, sm.firstName, sm.middleName, sm.lastName, sm.walletBalance"
+        $query = "SELECT sm.empId, sm.firstName, sm.middleName, sm.lastName, sm.walletBalance, sm.ifActive"
             ." FROM staffmaster sm"
             ." WHERE sm.mobNum = '".$mobnum."'";
 
@@ -152,7 +152,7 @@ class Dashboard_Model extends CI_Model
 
     public function getBalanceByEmp($empId)
     {
-        $query = "SELECT sm.mobNum, sm.empId, sm.firstName, sm.middleName, sm.lastName, sm.walletBalance"
+        $query = "SELECT sm.mobNum, sm.empId, sm.firstName, sm.middleName, sm.lastName, sm.walletBalance, sm.ifActive"
             ." FROM staffmaster sm"
             ." WHERE sm.empId = '".$empId."'";
 

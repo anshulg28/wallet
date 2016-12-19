@@ -43,7 +43,7 @@
                     </div>
                     <br>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label my-fullWidth">
-                        <input class="mdl-textfield__input" type="number" name="mobNum" id="mobNum" required>
+                        <input class="mdl-textfield__input" type="number" name="mobNum" id="mobNum">
                         <label class="mdl-textfield__label" for="mobNum">Mobile Number</label>
                     </div>
 
