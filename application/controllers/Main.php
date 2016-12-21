@@ -309,13 +309,21 @@ class Main extends MY_Controller {
         }
         else
         {
-            $details = array(
-                'staffName'=> $post['staffName'],
-                'walletBalance'=> $post['walletBalance'],
-                'empId'=> $post['empId']
-            );
-            $this->dashboard_model->saveCheckinLog($details);
-            $data['status'] = true;
+            if($post['walletBalance'] > 0)
+            {
+                $details = array(
+                    'staffName'=> $post['staffName'],
+                    'walletBalance'=> $post['walletBalance'],
+                    'empId'=> $post['empId']
+                );
+                $this->dashboard_model->saveCheckinLog($details);
+                $data['status'] = true;
+            }
+            else
+            {
+                $data['status'] = false;
+                $data['errorMsg'] = 'Zero or Negative balance!';
+            }
         }
         echo  json_encode($data);
     }

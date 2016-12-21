@@ -79,6 +79,24 @@ class Dashboard_Model extends CI_Model
         return true;
     }
 
+    public function updateStaffBatch($details)
+    {
+        $this->db->update_batch('staffmaster', $details,'empId');
+        return true;
+    }
+
+    public function walletLogsBatch($details)
+    {
+        $this->db->insert_batch('walletlogmaster', $details);
+        return true;
+    }
+
+    public function smsLogsBatch($details)
+    {
+        $this->db->insert_batch('smsmaster', $details);
+        return true;
+    }
+
     public function blockStaffRecord($id)
     {
         $details = array(
