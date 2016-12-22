@@ -48,7 +48,7 @@
                                         {
                                             ?>
                                             <div for="bulb<?php echo $row['id'];?>" class="mdl-tooltip">Active</div>
-                                            <a id="bulb<?php echo $row['id'];?>" href="<?php echo base_url().'blockStaff/'.$row['id'];?>">
+                                            <a class="pageTracker" id="bulb<?php echo $row['id'];?>" href="<?php echo base_url().'blockStaff/'.$row['id'];?>">
                                                 <i class="fa fa-lightbulb-o fa-15x my-success-text"></i></a>&nbsp;
                                             <?php
                                         }
@@ -56,16 +56,16 @@
                                         {
                                             ?>
                                             <div for="bulb<?php echo $row['id'];?>" class="mdl-tooltip">Blocked</div>
-                                            <a id="bulb<?php echo $row['id'];?>" href="<?php echo base_url().'freeStaff/'.$row['id'];?>">
+                                            <a class="pageTracker" id="bulb<?php echo $row['id'];?>" href="<?php echo base_url().'freeStaff/'.$row['id'];?>">
                                                 <i class="fa fa-lightbulb-o fa-15x my-danger-text"></i></a>&nbsp;
                                             <?php
                                         }
                                         ?>
                                         <div for="edit<?php echo $row['id'];?>" class="mdl-tooltip">Edit</div>
-                                        <a id="edit<?php echo $row['id'];?>" href="<?php echo base_url().'edit/'.$row['id'];?>">
+                                        <a class="pageTracker" id="edit<?php echo $row['id'];?>" href="<?php echo base_url().'edit/'.$row['id'];?>">
                                             <i class="fa fa-edit fa-15x"></i></a>&nbsp;
                                         <div for="wallet<?php echo $row['id'];?>" class="mdl-tooltip">Manage Wallet</div>
-                                        <a id="wallet<?php echo $row['id'];?>" href="<?php echo base_url().'walletManage/'.$row['id'];?>">
+                                        <a class="pageTracker" id="wallet<?php echo $row['id'];?>" href="<?php echo base_url().'walletManage/'.$row['id'];?>">
                                             <i class="fa fa-money fa-15x"></i></a>&nbsp;
                                     </td>
                                 </tr>
@@ -129,12 +129,34 @@
 </body>
 <?php echo $globalJs; ?>
 <script>
-    if(typeof $('#staffTable') !== 'undefined')
+    var staffTable = null;
+
+    /*if(typeof $('#staffTable') !== 'undefined')
     {
-        $('#staffTable').DataTable({
+       staffTable = $('#staffTable').DataTable({
+            "ordering": false
+        });
+    }*/
+
+    $(document).on('click','.pageTracker', function(){
+        localStorageUtil.setLocal('tabWalletPage',staffTable.page());
+    });
+
+    if(localStorageUtil.getLocal('tabWalletPage') != null)
+    {
+        var staffTable =  $('#staffTable').DataTable({
+            "displayStart": localStorageUtil.getLocal('tabWalletPage') * 10,
+            "ordering": false
+        });
+        localStorageUtil.delLocal('tabWalletPage');
+    }
+    else
+    {
+        var staffTable =  $('#staffTable').DataTable({
             "ordering": false
         });
     }
+
 </script>
 
 </html>

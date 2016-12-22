@@ -50,16 +50,27 @@ class Cron extends MY_Controller {
         $mynums = array('8879103942', '9975027683', '9167333659','7045657944','7666192320','8652599420','9987217825','9870553445');
         $smsNums = array();
         $smsBalances = array();
+        $smsCredits = array();
 
         if($totalStaff['status'] === true)
         {
             foreach($totalStaff['staffList'] as $key => $row)
             {
-                if($row['ifActive'] == '1' && $row['mobNum'] != '' && $row['walletBalance'] < 6000)
+                if($row['ifActive'] == '1' && $row['mobNum'] != '')
                 {
                     $oldBalance = $row['walletBalance'];
                     $usedAmt = 1500;
                     $finalBal = $oldBalance + $usedAmt;
+                    if($finalBal > 6000)
+                    {
+                        $accessBal = $finalBal - 6000;
+                        $finalBal = $finalBal - $accessBal;
+                        $smsCredits[] = $usedAmt - $accessBal;
+                    }
+                    else
+                    {
+                        $smsCredits[] = $usedAmt;
+                    }
 
                     $data = array(
                         'walletBalance' => $finalBal
@@ -90,7 +101,7 @@ class Cron extends MY_Controller {
                         'apiKey' => TEXTLOCAL_API,
                         'numbers' => implode(',', array($smsNums[$i])),
                         'sender'=> urlencode('DOLALY'),
-                        'message' => rawurlencode('1500 Credited, Total Available Balance: '.$smsBalances[$i])
+                        'message' => rawurlencode($smsCredits[$i].' Credited, Total Available Balance: '.$smsBalances[$i])
                     );
                     $smsStatus = $this->curl_library->sendCouponSMS($postDetails);
 
