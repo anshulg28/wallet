@@ -128,12 +128,26 @@
                             if(Number(data.balance.walletBalance) > 0)
                             {
                                 newHtml += '<span class="alert-success">Wallet Balance: Rs. '+data.balance.walletBalance+'/-</span>';
-                                $('#checkinBtn').removeClass('hide');
+                                if(data.balance.mobNum == '')
+                                {
+                                    newHtml += '<br>No Mobile Number!';
+                                }
+                                else
+                                {
+                                    $('#checkinBtn').removeClass('hide');
+                                }
                             }
                             else
                             {
                                 newHtml += '<span class="alert-danger">Wallet Balance: Rs. '+data.balance.walletBalance+'/-</span>';
-                                $('#checkinBtn').addClass('hide');
+                                if(data.balance.mobNum == '')
+                                {
+                                    newHtml += '<br>No Mobile Number!';
+                                }
+                                else
+                                {
+                                    $('#checkinBtn').removeClass('hide');
+                                }
                             }
                             $('.walletBalance-view').empty().html(newHtml).removeClass('hide');
                         }

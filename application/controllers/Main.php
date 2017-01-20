@@ -24,14 +24,17 @@ class Main extends MY_Controller {
 	{
         $data = array();
 
+        //Checking for session Exists
         if(isSessionVariableSet($this->isWUserSession) === true)
         {
+            //Fetching all Staff List
             $staff = $this->dashboard_model->getAllStaffs();
             if(isset($staff['status']) &&$staff['status'] === true)
             {
                 $data['staffList'] = $staff['staffList'];
             }
         }
+        //Loading style and js files
         $data['globalStyle'] = $this->dataformatinghtml_library->getGlobalStyleHtml($data);
         $data['globalJs'] = $this->dataformatinghtml_library->getGlobalJsHtml($data);
         $data['headerView'] = $this->dataformatinghtml_library->getHeaderHtml($data);
@@ -162,6 +165,7 @@ class Main extends MY_Controller {
     {
         $this->checkUserLogin();
         $post = $this->input->post();
+        //Getting old balance
         $oldBal = $post['oldBalance'];
         unset($post['oldBalance']);
 
@@ -195,6 +199,8 @@ class Main extends MY_Controller {
     function walletManage($id)
     {
         $this->checkUserLogin();
+
+        //Getting all wallet transaction details
         $wallet = $this->dashboard_model->getWalletTrans($id);
         $data = array();
         if(isset($wallet['status']) && $wallet['status'] === true)
@@ -276,6 +282,7 @@ class Main extends MY_Controller {
         $post = $this->input->post();
         $data = array();
 
+        //Get wallet balance with mobile number or emp id as input
         if(isset($post['userInput']) && is_numeric($post['userInput']))
         {
             $walletBal = $this->dashboard_model->getBalanceByMob($post['userInput']);
@@ -301,6 +308,7 @@ class Main extends MY_Controller {
         $post = $this->input->post();
         $data = array();
 
+        //checking if staff already checked in
         $checkin = $this->dashboard_model->checkStaffChecked($post['empId']);
         if($checkin['status'] === true)
         {
@@ -311,6 +319,7 @@ class Main extends MY_Controller {
         {
             if($post['walletBalance'] > 0)
             {
+                //Saving the checkin for new member
                 $details = array(
                     'staffName'=> $post['staffName'],
                     'walletBalance'=> $post['walletBalance'],
@@ -338,9 +347,11 @@ class Main extends MY_Controller {
     {
         $data = array();
 
+        //getting staff checked in state
         $checkinDetail = $this->dashboard_model->getCheckinById($id);
         if (isset($checkinDetail) && myIsMultiArray($checkinDetail))
         {
+            //getting staff details and passing for billing
             $data['billDetails'] = $this->dashboard_model->getBalanceByEmp($checkinDetail[0]['empId']);
         }
 
@@ -355,13 +366,16 @@ class Main extends MY_Controller {
 
     function getCoupon()
     {
+        // main function for settling the bill of employee.
         $post = $this->input->post();
 
         $data = array();
+        //coupon got removed
         $coupon = $this->dashboard_model->getOneCoupon();
 
         if(isset($post['empId']) && isStringSet($post['empId']))
         {
+            //fetching all details of staff using employee Id
             $staffDetails = $this->dashboard_model->getStaffByEmpId($post['empId']);
 
             //$this->dashboard_model->setCouponUsed($coupon['id']);
@@ -372,10 +386,14 @@ class Main extends MY_Controller {
                 'billAmount' => $post['billAmount'],
                 'insertedDT' => date('Y-m-d H:i:s')
             );
+            //Saving a billing log
             $this->dashboard_model->saveBillLog($billLog);
+            //clearing the checkin log of the employee
             $this->dashboard_model->clearCheckinLog($post['checkInId']);
+
             $oldBalance = $post['walletBalance'];
             $usedAmt = $post['billAmount'];
+            //Calculating the final balance of the employee
             $finalBal = $oldBalance - $usedAmt;
             $walletRecord = array(
                 'staffId' => $staffDetails[0]['id'],
@@ -384,13 +402,17 @@ class Main extends MY_Controller {
                 'notes' => 'Wallet Balance Used',
                 'updatedBy' => 'system'
             );
+            //Updating the wallet log of the employee
             $this->dashboard_model->updateWalletLog($walletRecord);
 
+
+            //Updating the staff wallet balance
             $details = array(
                 'walletBalance' => $finalBal
             );
             $this->dashboard_model->updateStaffRecord($staffDetails[0]['id'],$details);
 
+            //Sending the SMS to employee with updated wallet balance
             $numbers = array('91'.$post['mobNum']);
 
             $postDetails = array(
